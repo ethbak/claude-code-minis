@@ -1,0 +1,16 @@
+{
+  "name": "claude-code-minis-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-readmes.mjs",
+    "dev": "npm run sync && astro dev",
+    "build": "npm run sync && astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.42.5",
+    "astro": "^7.3.5",
+    "starlight-llms-txt": "^0.12.0"
+  }
+}

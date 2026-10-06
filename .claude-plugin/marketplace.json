@@ -1,0 +1,10 @@
+{
+  "name": "claude-code-minis",
+  "description": "Small, focused plugins for Claude Code.",
+  "owner": { "name": "Ethan Baker", "url": "https://github.com/ethbak" },
+  "plugins": [
+    { "name": "remote-resume", "source": "./plugins/remote-resume", "category": "remote-control", "tags": ["resume", "sessions", "remote-control", "mobile"] },
+    { "name": "remote-terminal", "source": "./plugins/remote-terminal", "category": "remote-control", "tags": ["shell", "terminal", "tmux", "remote-control", "mobile"] },
+    { "name": "mode-picker", "source": "./plugins/mode-picker", "category": "remote-control", "tags": ["permission-mode", "plan-mode", "remote-control", "mobile"] }
+  ]
+}

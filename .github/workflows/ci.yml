@@ -1,0 +1,64 @@
+name: ci
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "52 10 * * *"   # nightly, against the newest Claude Code
+permissions:
+  contents: read
+  issues: write
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Install tmux and zsh
+        run: |
+          if [ "$RUNNER_OS" = macOS ]; then brew list tmux >/dev/null 2>&1 || brew install tmux
+          else sudo apt-get update -q && sudo apt-get install -yq tmux zsh; fi
+      - name: Install the newest Claude Code
+        run: |
+          curl -fsSL https://claude.ai/install.sh | bash
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - run: claude --version
+      - name: Validate the marketplace and plugins
+        run: |
+          claude plugin validate .
+          for p in plugins/*/; do claude plugin validate "$p"; done
+      - name: Shared module copies match
+        run: python3 tools/sync_shared.py --check
+      - name: Drift check against the installed Claude Code
+        run: python3 tools/drift_check.py
+      - name: Install the remote-terminal helper
+        run: sudo python3 plugins/remote-terminal/scripts/install_helper.py
+      - name: Tests
+        run: uv run --with pytest pytest -v tests
+      - name: Helper log
+        if: failure()
+        run: sudo cat /var/log/remote-terminal-helper.log 2>/dev/null || sudo journalctl -u remote-terminal-helper --no-pager | tail -50
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci && npm run build
+        working-directory: site
+  report:
+    needs: [test, site]
+    if: failure() && github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open an issue for the nightly failure
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create -R "$GITHUB_REPOSITORY" --title "Nightly run failed $(date -u +%F)" \
+            --body "The nightly run against the newest Claude Code failed: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
