@@ -1,25 +1,25 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../../assets/mode-picker-header-dark.png">
-  <img src="../../assets/mode-picker-header-light.png" alt="mode-picker: switch to any permission mode, Auto and Bypass included" width="880">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/mode-picker-header-dark.png">
+  <img src="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/mode-picker-header-light.png" alt="mode-picker: switch to any permission mode, Auto and Bypass included" width="880">
 </picture>
 
 # mode-picker: change permission mode in Claude Code Remote Control
 
-<p align="center"><img src="../../assets/screenshots/mode-menu.png" alt="/mode in the Claude iPhone app: the current mode, Plan, and a table of every mode with its command and what it does" width="320"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/screenshots/mode-menu.png" alt="/mode in the Claude iPhone app: the current mode, Plan, and a table of every mode with its command and what it does" width="320"></p>
 
 `/mode` switches a [Remote Control](https://code.claude.com/docs/en/remote-control) session to any of Claude Code's six permission modes from the Claude app. For Remote Control, the app's mode menu offers at most Manual, Accept edits and Plan, and [never Auto or Bypass permissions](https://code.claude.com/docs/en/permission-modes).
 
 When a long task from your phone stops at every step to ask permission, send `/mode bypass` or `/mode auto`.
 
 > [!TIP]
-> Part of [claude-code-minis](../..), small, focused plugins for Claude Code.
+> Part of [claude-code-minis](https://github.com/ethbak/claude-code-minis), small, focused plugins for Claude Code.
 
 > [!IMPORTANT]
 > **Bypass permissions and Auto from your phone, with no tokens.** The plugin sends the switch and writes the reply itself, without a Claude turn.
 
 ## ✨ Features
 
-<p align="center"><img src="../../assets/screenshots/mode-switch.png" alt="/mode bypass: Switched to Bypass permissions from Plan, with a line saying it runs everything without asking" width="320"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/screenshots/mode-switch.png" alt="/mode bypass: Switched to Bypass permissions from Plan, with a line saying it runs everything without asking" width="320"></p>
 
 - 🎚️ **All six permission modes**, including Auto and Bypass permissions.
 - ✅ **Confirmed switches**: the reply says "Switched" only after the session confirms the change, and says why if it refuses.
@@ -57,6 +57,12 @@ When a long task from your phone stops at every step to ask permission, send `/m
 
 > [!NOTE]
 > Claude Code's own policy still applies. If an administrator disabled bypass mode for your account or organization, `/mode bypass` replies with the reason and leaves the mode as it was.
+
+## 🔐 What it accesses
+
+- **Your Claude Code login**, read from the macOS Keychain or `~/.claude/.credentials.json`, to call the claude.ai API at `api.anthropic.com`. It sends your session the permission-mode change, reads the session's reply, and posts its own reply into the chat.
+
+It sends nothing anywhere else.
 
 ## 🩺 Troubleshooting
 

@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "/rresume lists, searches and resumes Claude Code sessions from the claude.ai web or mobile app, where /resume is unavailable. Brings back archived Remote Control chats and moves terminal sessions into Remote Control with their history, model, effort, permission mode and working directory.",
   "author": { "name": "Ethan Baker", "url": "https://github.com/ethbak" },
-  "homepage": "https://github.com/ethbak/claude-code-minis/tree/main/plugins/remote-resume",
+  "homepage": "https://ethbak.github.io/claude-code-minis/remote-resume/",
   "repository": "https://github.com/ethbak/claude-code-minis",
   "license": "MIT",
   "keywords": ["claude-code", "remote-control", "resume", "sessions", "mobile", "unarchive"],

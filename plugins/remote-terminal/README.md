@@ -1,18 +1,18 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../../assets/remote-terminal-header-dark.png">
-  <img src="../../assets/remote-terminal-header-light.png" alt="remote-terminal: run shell commands from the Claude app" width="880">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/remote-terminal-header-dark.png">
+  <img src="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/remote-terminal-header-light.png" alt="remote-terminal: run shell commands from the Claude app" width="880">
 </picture>
 
 # remote-terminal: run shell commands from the Claude app
 
-<p align="center"><img src="../../assets/screenshots/terminal-python.png" alt="A Python session driven from the Claude iPhone app: !python3 opens the REPL and the reply says it is waiting for input, then !print(&quot;hello from my phone&quot;) runs in it" width="320"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/screenshots/terminal-python.png" alt="A Python session driven from the Claude iPhone app: !python3 opens the REPL and the reply says it is waiting for input, then !print(&quot;hello from my phone&quot;) runs in it" width="320"></p>
 
 Run shell commands on your computer from the Claude app during a [Remote Control](https://code.claude.com/docs/en/remote-control) session. Start a message with `!` and the plugin types it into a persistent shell. The output arrives when the command finishes or stops for input. Claude then replies to it, as with `!` in a terminal session.
 
 Use it for `git status`, a test run or a failed deploy. When a script asks `Continue? [y/N]` or `sudo` asks for a password, answer with another `!` message.
 
 > [!TIP]
-> Part of [claude-code-minis](../..), small, focused plugins for Claude Code.
+> Part of [claude-code-minis](https://github.com/ethbak/claude-code-minis), small, focused plugins for Claude Code.
 
 > [!IMPORTANT]
 > **Interactive, unlike Claude Code's own `!`.** In a terminal session, `!` gives commands no input, so a password prompt or a `y/n` question gets nothing. remote-terminal detects when a program waits for input, says so, and types your next `!` message into it.
@@ -73,7 +73,7 @@ Without the helper, `!` still works. The reply then waits until the screen has b
 
 ## 🚀 Usage
 
-<p align="center"><img src="../../assets/screenshots/terminal-git-log.png" alt="!git log --oneline -6 in the Claude iPhone app: the reply shows the folder, exit 0 and the run time above the log, then Claude's one-line summary" width="320"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/screenshots/terminal-git-log.png" alt="!git log --oneline -6 in the Claude iPhone app: the reply shows the folder, exit 0 and the run time above the log, then Claude's one-line summary" width="320"></p>
 
 ```
 !git status
@@ -104,9 +104,17 @@ Each reply shows the folder, exit code and run time, then the terminal output. W
 | ❔ **Can't tell** | macOS only: a program watches the terminal *and* a socket or pipe at once, like an interactive `ssh` session. Once the screen has been still for 3 seconds, the reply says so. |
 | ⏳ **Still running** | After 270 seconds the reply shows what's there so far. The program keeps running; send `!` later to see more. |
 
-The details, and why it takes a root helper: [How remote-terminal knows a program is waiting for input](../../docs/waiting-for-input.md).
+The details, and why it takes a root helper: [How remote-terminal knows a program is waiting for input](https://ethbak.github.io/claude-code-minis/waiting-for-input/).
 
 Each chat gets its own shell window, started in the chat's working directory. After that chat's Claude Code session ends, the next `!` from any chat closes the window. The shell skips your startup files, so a prompt theme cannot redraw earlier lines.
+
+## 🔐 What it accesses
+
+- **A shell on your computer**: everything you send with `!` runs there as you, in a private tmux server.
+- **Your Claude Code login**, read from the macOS Keychain or `~/.claude/.credentials.json`, to post each command's output into your chat through the claude.ai API at `api.anthropic.com`.
+- **The optional root helper** answers over a local Unix socket only. It reads which system call your terminal's programs are blocked in, and makes no network connections.
+
+It sends nothing anywhere else.
 
 ## 🔒 Security
 

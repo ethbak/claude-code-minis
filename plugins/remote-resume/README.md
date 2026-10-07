@@ -1,18 +1,18 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../../assets/remote-resume-header-dark.png">
-  <img src="../../assets/remote-resume-header-light.png" alt="remote-resume: resume any Claude Code session from your phone" width="880">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/remote-resume-header-dark.png">
+  <img src="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/remote-resume-header-light.png" alt="remote-resume: resume any Claude Code session from your phone" width="880">
 </picture>
 
 # remote-resume: resume Claude Code sessions from the Claude app
 
-<p align="center"><img src="../../assets/screenshots/rresume-list.png" alt="/rresume in the Claude iPhone app: a table of recent sessions with their title, last prompt, age, turns and context size" width="320"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/screenshots/rresume-list.png" alt="/rresume in the Claude iPhone app: a table of recent sessions with their title, last prompt, age, turns and context size" width="320"></p>
 
 `/rresume` lists, searches and resumes your Claude Code sessions from the Claude app. It works in [Remote Control](https://code.claude.com/docs/en/remote-control) sessions, where the built-in `/resume` does not. Archived chats come back under their own id. Sessions you started in a terminal move into Remote Control with their full history.
 
 The app has no `/resume` and does not show terminal sessions. `/rresume` lists all of them, and `/rresume 3` resumes the third.
 
 > [!TIP]
-> Part of [claude-code-minis](../..), small, focused plugins for Claude Code.
+> Part of [claude-code-minis](https://github.com/ethbak/claude-code-minis), small, focused plugins for Claude Code.
 
 ## ✨ Features
 
@@ -21,7 +21,7 @@ The app has no `/resume` and does not show terminal sessions. `/rresume` lists a
 - ♻️ **Resumes a Remote Control chat** under its own id, archived or not, the way `/resume` would.
 - 💻 **Moves a terminal session into Remote Control** with its full history, file checkpoints, model, effort, permission mode and working directory.
 
-<p align="center"><img src="../../assets/screenshots/rresume-resumed.png" alt="/rresume 10: the reply links to the resumed chat and says this chat had no other content and will be archived; the app then shows it as archived" width="320"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/ethbak/claude-code-minis/main/assets/screenshots/rresume-resumed.png" alt="/rresume 10: the reply links to the resumed chat and says this chat had no other content and will be archived; the app then shows it as archived" width="320"></p>
 
 > [!IMPORTANT]
 > **Archives its own leftovers and costs no tokens.** After a resume, the chat you typed `/rresume` in is archived if it held nothing else, so throwaway chats do not pile up. The plugin writes every reply itself, so `/rresume` uses no Claude turn.
@@ -51,6 +51,14 @@ Resuming needs a running Remote Control server: `claude remote-control` in the p
 | `/rresume deploy` | The 10 most recent whose title or prompts mention "deploy" |
 | `/rresume next` / `prev` | The next 10, or back; numbering continues |
 | `/rresume 3` | Resume number 3 from the last list this chat showed |
+
+## 🔐 What it accesses
+
+- **Your session files** in `~/.claude/projects`, read locally to build the list (titles and the prompts you typed).
+- **Your Claude Code login**, read from the macOS Keychain or `~/.claude/.credentials.json`, to call the claude.ai API at `api.anthropic.com`. It lists your sessions and Remote Control environments, reads a session's recent events, archives, unarchives and reconnects sessions, and posts its reply into the chat. Moving a terminal session in creates a new Remote Control session and uploads that session's transcript to it.
+- **A cache** in the plugin's data folder, so later lists only read what changed.
+
+It sends nothing anywhere else.
 
 ## ⚙️ Options
 

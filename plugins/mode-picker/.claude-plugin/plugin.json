@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "/mode switches a Claude Code Remote Control session's permission mode (default, acceptEdits, plan, auto, dontAsk, bypassPermissions) from the claude.ai web or mobile app, including auto and bypassPermissions, which the app's menu doesn't offer.",
   "author": { "name": "Ethan Baker", "url": "https://github.com/ethbak" },
-  "homepage": "https://github.com/ethbak/claude-code-minis/tree/main/plugins/mode-picker",
+  "homepage": "https://ethbak.github.io/claude-code-minis/mode-picker/",
   "repository": "https://github.com/ethbak/claude-code-minis",
   "license": "MIT",
   "keywords": ["claude-code", "remote-control", "permission-mode", "plan-mode", "bypass-permissions", "mobile"]

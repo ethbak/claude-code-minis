@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Run shell commands from the claude.ai web or mobile app: !<command> (or /!<command>) types into a persistent shell per chat and replies with the output as soon as the command finishes or waits for input. Answer prompts, enter passwords, send Ctrl-C. macOS and Linux.",
   "author": { "name": "Ethan Baker", "url": "https://github.com/ethbak" },
-  "homepage": "https://github.com/ethbak/claude-code-minis/tree/main/plugins/remote-terminal",
+  "homepage": "https://ethbak.github.io/claude-code-minis/remote-terminal/",
   "repository": "https://github.com/ethbak/claude-code-minis",
   "license": "MIT",
   "keywords": ["claude-code", "remote-control", "shell", "terminal", "tmux", "bash-mode", "mobile"]
