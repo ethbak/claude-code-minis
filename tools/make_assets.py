@@ -96,6 +96,14 @@ def header(plugin, theme):
     return svg(880, 140, body, f'{plugin["name"]}: {plugin["tagline"]}')
 
 
+def listing_icon(plugin):
+    """Square icon for Anthropic's plugin directory: the plugin's glyph in white on its accent color. Rendered to a
+    1024 px PNG at plugins/<name>/.claude-plugin/icon.png."""
+    accent = plugin["accent"]["light"]
+    return svg(512, 512, f'<rect width="512" height="512" fill="{accent}"/>' + icon(plugin["icon"], 128, 128, 256, "#ffffff", 2),
+               plugin["name"])
+
+
 def small_icon(plugin, theme):
     return svg(48, 48, tile(plugin["icon"], 2, 2, 44, plugin["accent"][theme], theme), plugin["name"])
 
@@ -108,6 +116,8 @@ def main():
         for p in PLUGINS:
             (OUT / f"{p['name']}-header-{theme}.svg").write_text(header(p, theme))
             (OUT / f"{p['name']}-icon-{theme}.svg").write_text(small_icon(p, theme))
+    for p in PLUGINS:
+        (OUT / f"{p['name']}-listing-icon.svg").write_text(listing_icon(p))
     print("\n".join(sorted(f.name for f in OUT.glob("*.svg"))))
 
 
