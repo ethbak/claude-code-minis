@@ -60,7 +60,7 @@ When a long task from your phone stops at every step to ask permission, send `/m
 
 ## 🔐 What it accesses
 
-- **Your Claude Code login**, read from the macOS Keychain or `~/.claude/.credentials.json`, to call the claude.ai API at `api.anthropic.com`. It sends your session the permission-mode change, reads the session's reply, and posts its own reply into the chat.
+- **Your Claude Code login**, the one Claude Code itself uses, to call the claude.ai API at `api.anthropic.com`. It sends your session the permission-mode change, reads the session's reply, and posts its own reply into the chat.
 
 It sends nothing anywhere else.
 

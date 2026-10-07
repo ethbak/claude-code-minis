@@ -111,7 +111,7 @@ Each chat gets its own shell window, started in the chat's working directory. Af
 ## 🔐 What it accesses
 
 - **A shell on your computer**: everything you send with `!` runs there as you, in a private tmux server.
-- **Your Claude Code login**, read from the macOS Keychain or `~/.claude/.credentials.json`, to post each command's output into your chat through the claude.ai API at `api.anthropic.com`.
+- **Your Claude Code login**, the one Claude Code itself uses, to post each command's output into your chat through the claude.ai API at `api.anthropic.com`.
 - **The optional root helper** answers over a local Unix socket only. It reads which system call your terminal's programs are blocked in, and makes no network connections.
 
 It sends nothing anywhere else.

@@ -55,7 +55,7 @@ Resuming needs a running Remote Control server: `claude remote-control` in the p
 ## 🔐 What it accesses
 
 - **Your session files** in `~/.claude/projects`, read locally to build the list (titles and the prompts you typed).
-- **Your Claude Code login**, read from the macOS Keychain or `~/.claude/.credentials.json`, to call the claude.ai API at `api.anthropic.com`. It lists your sessions and Remote Control environments, reads a session's recent events, archives, unarchives and reconnects sessions, and posts its reply into the chat. Moving a terminal session in creates a new Remote Control session and uploads that session's transcript to it.
+- **Your Claude Code login**, the one Claude Code itself uses, to call the claude.ai API at `api.anthropic.com`. It lists your sessions and Remote Control environments, reads a session's recent events, archives, unarchives and reconnects sessions, and posts its reply into the chat. Moving a terminal session in creates a new Remote Control session and uploads that session's transcript to it.
 - **A cache** in the plugin's data folder, so later lists only read what changed.
 
 It sends nothing anywhere else.
